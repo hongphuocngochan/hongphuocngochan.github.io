@@ -261,25 +261,50 @@ body.lightbox-open { overflow: hidden; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-/* Hành trình của chúng mình: dòng thời gian 4 mốc (giống thiệp nhà gái) */
-.story { background: rgba(255,250,242,.2); }
-.journey { position: relative; z-index: 1; width: min(560px, 100%); margin: 0 auto; padding: 0; list-style: none; }
+/* Hành trình của chúng mình: dòng thời gian 4 mốc, CSS giống hệt thiệp nhà gái.
+   Font giống nhà gái: Cormorant (tiêu đề) · Lora (chữ đọc) · Be Vietnam Pro (nhãn thời gian) */
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("assets/fonts/lora-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("assets/fonts/lora-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: "Be Vietnam Pro"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/be-vietnam-pro-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Be Vietnam Pro"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/be-vietnam-pro-600-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+.story { --j-display: "Cormorant Garamond", "Palatino Linotype", Georgia, serif; --j-serif: "Lora", Georgia, "Times New Roman", serif; --j-sans: "Be Vietnam Pro", "Segoe UI", sans-serif; }
+.journey { position: relative; width: min(560px, 100%); margin: 0 auto; padding: 0; list-style: none; }
 .journey::before { content: ""; position: absolute; top: 10px; bottom: 30px; left: 21px; width: 2px; border-radius: 2px; background: linear-gradient(var(--gold), #b79a6540 85%, transparent); }
 .milestone { position: relative; padding: 0 0 22px 62px; }
 .milestone:last-child { padding-bottom: 0; }
 .milestone-node { position: absolute; z-index: 1; top: 6px; left: 0; width: 44px; height: 44px; display: grid; place-items: center; border: 2px solid var(--gold); border-radius: 50%; background: var(--paper-light); box-shadow: 0 4px 12px #381c1c22; font-size: 20px; line-height: 1; }
 .milestone::after { content: ""; position: absolute; top: 28px; left: 44px; width: 18px; height: 2px; background: #b79a6599; }
 .milestone-card { padding: 14px 18px 16px; border: 1px solid #b79a6555; border-radius: 12px; background: #fffaf2d9; box-shadow: 0 8px 20px #381c1c12; }
-.milestone-time { margin: 0 0 2px; color: var(--gold); font: 600 11px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; }
-.milestone-title { margin: 0 0 6px; color: var(--wine); font: 600 24px/1.2 var(--serif); }
-.milestone-text { margin: 0; color: var(--ink); font: 400 14.5px/1.75 var(--sans); }
+.milestone-time { margin: 0 0 2px; color: var(--gold); font: 600 11px/1.4 var(--j-sans); letter-spacing: .16em; text-transform: uppercase; }
+.milestone-title { margin: 0 0 6px; color: var(--wine); font: 600 23px/1.2 var(--j-display); }
+.milestone-text { margin: 0; color: var(--ink); font: 15.5px/1.7 var(--j-serif); }
 .milestone-quote .milestone-card { border-color: var(--wine); color: #f6eee6; background: var(--wine); }
 .milestone-quote .milestone-title { color: #fff8ef; font-style: italic; }
 .milestone-quote .milestone-text { color: #ecd8cf; }
 .milestone-quote .milestone-time { color: #e3c690; }
 .milestone-final .milestone-node { border-color: var(--wine); background: var(--wine); }
 .milestone-final .milestone-card { border: 2px solid var(--gold); background: linear-gradient(#fffaf2, #f8ecd6); }
-/* Hiện dần từng mốc khi cuộn tới (chỉ khi JS chạy) */
+/* Hiện dần từng mốc khi cuộn tới (chỉ khi JS chạy, xem cuối index.html) */
 .reveal-ready .milestone { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
 .reveal-ready .milestone.is-visible { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal-ready .milestone { opacity: 1; transform: none; transition: none; } }
+/* Máy tính: các mốc xen kẽ trái phải */
+@media (min-width: 1024px) {
+  .journey { width: 100%; }
+  .journey::before { left: 50%; transform: translateX(-50%); }
+  .milestone { width: 50%; padding: 0 62px 40px 0; }
+  .milestone:nth-child(even) { margin-left: 50%; padding: 0 0 40px 62px; }
+  .milestone:last-child { padding-bottom: 0; }
+  .milestone + .milestone { margin-top: -80px; }
+  .milestone-node { left: auto; right: -27px; width: 54px; height: 54px; font-size: 25px; }
+  .milestone:nth-child(even) .milestone-node { left: -27px; right: auto; }
+  .milestone::after { top: 33px; left: auto; right: 27px; width: 35px; }
+  .milestone:nth-child(even)::after { left: 27px; right: auto; }
+  .milestone:nth-child(odd) .milestone-card { text-align: right; }
+  .milestone-card { padding: 22px 26px 24px; }
+  .milestone-time { font-size: 12px; }
+  .milestone-title { font-size: 30px; }
+  .milestone-text { font-size: 17px; }
+  .reveal-ready .milestone:nth-child(odd) { transform: translateX(-28px); }
+  .reveal-ready .milestone:nth-child(even) { transform: translateX(28px); }
+  .reveal-ready .milestone.is-visible { transform: none; }
+}
